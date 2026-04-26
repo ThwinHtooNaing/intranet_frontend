@@ -1,14 +1,285 @@
+/* auth/layout.module.css */
+
 .container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f5f5;
+  background: white;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.box {
+/* Left decorative arcs */
+.leftArcGray {
+  position: absolute;
+  left: -160px;
+  top: -100px;
+  width: 480px;
+  height: 480px;
+  background: #E5E7EB;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.leftArcBlue {
+  position: absolute;
+  left: -120px;
+  top: -60px;
   width: 400px;
-  padding: 24px;
+  height: 400px;
+  background: #0066FF;
+  border-radius: 50%;
+  opacity: 0.12;
+  z-index: 1;
+}
+
+/* Right decorative arcs */
+.rightArcGray {
+  position: absolute;
+  right: -140px;
+  bottom: -110px;
+  width: 440px;
+  height: 440px;
+  background: #E5E7EB;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.rightArcBlue {
+  position: absolute;
+  right: -100px;
+  bottom: -70px;
+  width: 360px;
+  height: 360px;
+  background: #0066FF;
+  border-radius: 50%;
+  opacity: 0.12;
+  z-index: 1;
+}
+
+/* Bottom left dots */
+.dots {
+  position: absolute;
+  bottom: 48px;
+  left: 48px;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: #5BA3FF;
+  border-radius: 50%;
+}
+
+
+/* Top nav */
+.topNav {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.registerBtn {
+  color: #374151;
+  font-weight: 600;
+  font-size: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.registerBtn:hover {
+  color: #5BA3FF;
+}
+
+.active{
+  color: #5BA3FF;
+}
+.signInBtn {
+  background: #5BA3FF;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgb(91 163 255 / 0.2);
+  transition: all 0.2s;
+}
+
+.signInBtn:hover {
+  background: #4A90E2;
+}
+
+/* Logo */
+.logo {
+  margin-bottom: 36px;
+}
+
+.encoreText {
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.complianceText {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  color: #0066FF;
+  margin-top: -6px;
+}
+
+/* Blue O in logo */
+.styledO {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  background: #0066FF;
+  border-radius: 50%;
+  margin: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.styledOInner {
+  width: 28px;
+  height: 28px;
   background: white;
-  border-radius: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.styledOCenter {
+  width: 13px;
+  height: 13px;
+  background: #0066FF;
+  border-radius: 50%;
+}
+
+/* Form */
+.form {
+  width: 100%;
+}
+
+.signInTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+}
+
+/* Input fields */
+.inputWrapper {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  font-size: 18px;
+  z-index: 10;
+}
+
+.input {
+  width: 100%;
+  padding: 16px 18px 16px 52px;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  font-size: 15px;
+  color: #0F172A;
+  background: white;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #5BA3FF;
+  box-shadow: 0 0 0 3px rgba(91, 163, 255, 0.12);
+}
+
+.input::placeholder {
+  color: #94A3B8;
+}
+
+/* Password eye */
+.eyeIcon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 10;
+}
+
+.eyeIcon:hover {
+  color: #64748B;
+}
+
+/* Login button */
+.loginButton {
+  width: 100%;
+  background: linear-gradient(to right, #5BA3FF, #4A90E2);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgb(91 163 255 / 0.25);
+}
+
+.loginButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 25px -5px rgb(91 163 255 / 0.3);
+}
+
+.loginButton:active {
+  transform: scale(0.985);
+}
+
+/* Forgot password */
+.forgotLink {
+  display: block;
+  margin-top: 20px;
+  color: #64748B;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgotLink:hover {
+  color: #475569;
 }
