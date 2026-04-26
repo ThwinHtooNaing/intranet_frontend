@@ -1,0 +1,14 @@
+.studentLayout {
+  min-height: 100vh;
+}
+
+.header {
+  padding: 18px 24px;
+  background: #16a34a;
+  color: white;
+}
+
+.content {
+  padding: 24px;
+  background: #f0fff4;
+}

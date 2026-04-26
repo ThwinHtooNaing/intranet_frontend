@@ -1,0 +1,14 @@
+.teacherLayout {
+  min-height: 100vh;
+}
+
+.navbar {
+  padding: 18px 24px;
+  background: #1e5eff;
+  color: white;
+}
+
+.content {
+  padding: 24px;
+  background: #f7f9ff;
+}
