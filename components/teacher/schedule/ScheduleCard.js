@@ -22,7 +22,21 @@ export default function ScheduleCard({ item }) {
       <h3>{item.title}</h3>
 
       <div className={styles.location}>
-        <span className="material-symbols-outlined">i</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+
         <p>{item.location}</p>
       </div>
     </div>

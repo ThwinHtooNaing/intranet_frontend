@@ -16,7 +16,7 @@ export default function CoursesMain() {
           <p className={styles.breadcrumb}>PORTAL › MY COURSES</p>
           <h1>My Courses</h1>
           <p className={styles.subtitle}>
-            Manage and monitor your active teaching curriculum for the 2024
+            Manage and monitor your active teaching curriculum for the 2026
             academic year.
           </p>
         </div>

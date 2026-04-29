@@ -1,8 +1,19 @@
 'use client';
 
 import styles from './Topbar.module.css';
+import {useState,useEffect} from 'react';
 
 export default function Topbar() {
+
+  const [user,setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   return (
     <header className={styles.topbar}>
       <div className={styles.searchContainer}>
@@ -16,8 +27,8 @@ export default function Topbar() {
 
       <div className={styles.userInfo}>
         <div>
-          <p className={styles.name}>Prof. Einstein</p>
-          <p className={styles.role}>Senior Researcher</p>
+          <p className={styles.name}>Prof. {user?.fullName || 'h'}</p>
+          <p className={styles.role}>{user?.email || 'h' }</p>
         </div>
       </div>
     </header>

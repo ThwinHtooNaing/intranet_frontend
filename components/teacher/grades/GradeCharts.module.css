@@ -69,6 +69,43 @@
   place-items: center;
 }
 
+.circle {
+  --size: 120px;
+  --thickness: 10px;
+  --percent: 0;
+
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: conic-gradient(
+    #0f9488 calc(var(--percent) * 1%),
+    #e5e7eb 0
+  );
+
+   margin: 28px auto 24px;
+
+  position: relative;
+}
+
+.circle::before {
+  content: "";
+  position: absolute;
+  width: calc(var(--size) - var(--thickness) * 2);
+  height: calc(var(--size) - var(--thickness) * 2);
+  background: white;
+  border-radius: 50%;
+}
+
+.inner {
+  position: relative;
+  text-align: center;
+}
+
 .circle h3 {
   color: #0f9488;
   font-size: 28px;

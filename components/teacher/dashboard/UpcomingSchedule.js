@@ -1,37 +1,52 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./UpcomingSchedule.module.css";
 
-const schedules = [
-  {
-    day: "MON",
-    date: "14",
-    title: "Quantum Mechanics",
-    time: "10:30 AM - 12:00 PM",
-    location: "Science Building, Room 402",
-    type: "LECTURE",
-  },
-  {
-    day: "MON",
-    date: "14",
-    title: "Faculty Strategy Meeting",
-    time: "02:00 PM - 03:00 PM",
-    location: "Google Meet • Join Link",
-    type: "INTERNAL",
-  },
-  {
-    day: "TUE",
-    date: "15",
-    title: "Advanced Calculus",
-    time: "09:00 AM - 11:00 AM",
-    location: "Math Annex, Room 108",
-    type: "SEMINAR",
-  },
-];
-
 export default function UpcomingSchedule() {
+  const [schedules, setSchedules] = useState([]);
+
+  useEffect(() => {
+    const fetchSchedules = async () => {
+      try {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const userId = storedUser?.userId;
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/schedules/${userId}/schedule`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        const data = await res.json();
+
+        const formatted = data.flatMap((day) =>
+          day.items.map((item) => ({
+            day: day.day.slice(0, 3),
+            date: "-",
+            title: item.title,
+            time: item.time,
+            location: item.location,
+            type: item.code,
+          })),
+        );
+
+        setSchedules(formatted);
+      } catch (err) {
+        console.error("Failed to fetch schedules:", err);
+      }
+    };
+
+    fetchSchedules();
+  }, []);
+
   return (
     <section className={styles.card}>
       <div className={styles.header}>
-        <h3>Upcoming Schedule</h3>
+        <h3 style={{ color: "#00645d" }}>Upcoming Schedule</h3>
         <button>Full Calendar</button>
       </div>
 

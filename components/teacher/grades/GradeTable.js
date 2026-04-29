@@ -1,59 +1,50 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./GradeTable.module.css";
 
-const students = [
-  {
-    name: "Alex Thompson",
-    id: "STU-2024-0012",
-    course: "CS101",
-    major: "Comp. Science",
-    grade: "A",
-    score: "92/100",
-    updated: "Last updated: 2 days ago",
-  },
-  {
-    name: "Elena Rodriguez",
-    id: "STU-2024-0045",
-    course: "CS101",
-    major: "Software Eng.",
-    grade: "A-",
-    score: "89/100",
-    updated: "Last updated: Yesterday",
-  },
-  {
-    name: "Jordan Smith",
-    id: "STU-2024-0082",
-    course: "CS101",
-    major: "Data Science",
-    grade: "B+",
-    score: "78/100",
-    updated: "Last updated: 4 hours ago",
-    orange: true,
-  },
-  {
-    name: "Maria Garcia",
-    id: "STU-2024-0033",
-    course: "CS101",
-    major: "Information Tech.",
-    grade: "--",
-    score: "Ungraded",
-    updated: "Pending Submission",
-    ungraded: true,
-  },
-];
+export default function GradeTable({ courseOfferingId, onOpenModal }) {
+  const [gradesPage, setGradesPage] = useState(null);
+  const [page, setPage] = useState(0);
 
-export default function GradeTable({ onOpenModal }) {
+  useEffect(() => {
+    console.log(courseOfferingId)
+    if (!courseOfferingId) {
+      setGradesPage(null);
+      return;
+    }
+
+    const fetchGrades = async () => {
+      try {
+        const id =  3;
+        // make it dynamic
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/teachers/course-offerings/${id}/students?page=${page}&size=4`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        const data = await res.json();
+        setGradesPage(data);
+      } catch (err) {
+        console.error("Failed to fetch grades:", err);
+      }
+    };
+
+    fetchGrades();
+  }, [courseOfferingId, page]);
+
+  const students = gradesPage?.content || [];
+
   return (
     <section className={styles.card}>
       <div className={styles.header}>
         <div className={styles.title}>
           <h2>Student Performance</h2>
           <span>ACTIVE</span>
-          <b>TERM 2</b>
-        </div>
-
-        <div className={styles.icons}>
-          <span className="material-symbols-outlined">icon</span>
-          <span className="material-symbols-outlined">icon</span>
         </div>
       </div>
 
@@ -64,38 +55,41 @@ export default function GradeTable({ onOpenModal }) {
           <span>COURSE</span>
           <span>MAJOR</span>
           <span>GRADE SYMBOL</span>
-          <span>SCORE</span>
+          <span>TIME</span>
           <span>ACTIONS</span>
         </div>
 
+        {!courseOfferingId && (
+          <p style={{ padding: "20px" }}>Select course first.</p>
+        )}
+
         {students.map((student) => (
-          <div className={styles.row} key={student.id}>
-            <p>{student.name}</p>
-            <p>{student.id}</p>
-            <p>{student.course}</p>
-            <p>{student.major}</p>
+          <div className={styles.row} key={student.enrollmentId}>
+            <p>{student.fullName}</p>
+            <p>{student.studentCode}</p>
+            <p>{student.courseCode}</p>
+            <p>{student.majorName || "-"}</p>
 
             <span
               className={`${styles.grade} ${
-                student.orange ? styles.orange : ""
+                !student.gradeSymbol ? styles.orange : ""
               }`}
             >
-              {student.grade}
+              {student.gradeSymbol || "--"}
             </span>
 
             <div>
-              <h3 className={student.ungraded ? styles.ungraded : ""}>
-                {student.score}
-              </h3>
-              <small className={student.ungraded ? styles.pending : ""}>
-                {student.updated}
+              <small className={!student.gradeSymbol ? styles.pending : ""}>
+                {student.gradedAt
+                  ? `Graded: ${student.gradedAt}`
+                  : "Pending Submission"}
               </small>
             </div>
 
             <button
               type="button"
-              onClick={onOpenModal}
-              className={student.ungraded ? styles.primaryBtn : ""}
+              onClick={() => onOpenModal(student)}
+              className={!student.gradeSymbol ? styles.primaryBtn : ""}
             >
               Assign / Update Grade
             </button>
@@ -103,17 +97,49 @@ export default function GradeTable({ onOpenModal }) {
         ))}
       </div>
 
-      <div className={styles.footer}>
-        <p>Showing 4 of 42 students</p>
+      {gradesPage && (
+        <div className={styles.footer}>
+          <p>
+            Showing {gradesPage.number * gradesPage.size + 1}-
+            {Math.min(
+              (gradesPage.number + 1) * gradesPage.size,
+              gradesPage.totalElements,
+            )}{" "}
+            of {gradesPage.totalElements} students
+          </p>
 
-        <div className={styles.pagination}>
-          <button type="button">‹</button>
-          <button type="button" className={styles.active}>1</button>
-          <button type="button">2</button>
-          <button type="button">3</button>
-          <button type="button">›</button>
+          <div className={styles.pagination}>
+            <button
+              type="button"
+              disabled={gradesPage.first}
+              onClick={() => setPage(page - 1)}
+            >
+              ‹
+            </button>
+
+            {Array.from({ length: gradesPage.totalPages || 0 }).map(
+              (_, index) => (
+                <button
+                  type="button"
+                  key={index}
+                  className={page === index ? styles.active : ""}
+                  onClick={() => setPage(index)}
+                >
+                  {index + 1}
+                </button>
+              ),
+            )}
+
+            <button
+              type="button"
+              disabled={gradesPage.last}
+              onClick={() => setPage(page + 1)}
+            >
+              ›
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

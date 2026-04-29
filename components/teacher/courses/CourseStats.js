@@ -1,13 +1,51 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./CourseStats.module.css";
 
-const stats = [
-  { label: "TOTAL STUDENTS", value: "842", badge: "+12%" },
-  { label: "AVG. ATTENDANCE", value: "94%", bar: true },
-  { label: "TOTAL COURSES", value: "14", badge: "2024" },
-  { label: "ACTIVE COURSES", value: "6", badge: "Current" },
-];
-
 export default function CourseStats() {
+  const [stats, setStats] = useState([]);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        const userId = storedUser?.userId;
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/teachers/${userId}/course-stats`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        const data = await res.json();
+
+        setStats([
+          {
+            label: "TOTAL STUDENTS",
+            value: data.totalStudents ?? 0,
+          },
+          {
+            label: "TOTAL COURSES",
+            value: data.totalCourses ?? 0,
+          },
+          {
+            label: "ACTIVE COURSES",
+            value: data.activeCourses ?? 0,
+            badge: "Current",
+          },
+        ]);
+      } catch (err) {
+        console.error("Failed to fetch course stats:", err);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
   return (
     <div className={styles.stats}>
       {stats.map((item) => (
@@ -16,13 +54,7 @@ export default function CourseStats() {
 
           <div className={styles.row}>
             <h2>{item.value}</h2>
-
             {item.badge && <span>{item.badge}</span>}
-            {item.bar && (
-              <div className={styles.bar}>
-                <div></div>
-              </div>
-            )}
           </div>
         </div>
       ))}

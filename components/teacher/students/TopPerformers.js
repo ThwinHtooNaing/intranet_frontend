@@ -1,27 +1,59 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./TopPerformers.module.css";
 
-export default function TopPerformers() {
+export default function TopPerformers({ courseOfferingId }) {
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    if (!courseOfferingId) {
+      setStudents([]);
+      return;
+    }
+
+    const fetchTopStudents = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/teachers/course-offerings/${courseOfferingId}/top-students`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        const data = await res.json();
+        setStudents(data);
+      } catch (err) {
+        console.error("Failed to fetch top performers:", err);
+      }
+    };
+
+    fetchTopStudents();
+  }, [courseOfferingId]);
+
   return (
     <aside className={styles.card}>
       <div className={styles.header}>
         <h2>Top Performers</h2>
-        <span>This Month</span>
+        <span>Top GPA</span>
       </div>
 
-      <div className={styles.performer}>
-        <h3>Lila Thorne</h3>
-        <p>GPA: 4.0 • 100% Attendance</p>
-      </div>
+      {!courseOfferingId && <p>Select course first.</p>}
 
-      <div className={styles.performer}>
-        <h3>Kevin Ortega</h3>
-        <p>GPA: 3.9 • 98% Attendance</p>
-      </div>
+      {courseOfferingId && students.length === 0 && (
+        <p>No top performers found.</p>
+      )}
 
-      <div className={styles.performer}>
-        <h3>Kevin Ortega</h3>
-        <p>GPA: 3.9 • 98% Attendance</p>
-      </div>
+      {students.map((student) => (
+        <div className={styles.performer} key={student.studentId}>
+          <h3>{student.fullName}</h3>
+          <p>
+            GPA: {Number(student.gpa).toFixed(2)} • {student.studentCode}
+          </p>
+        </div>
+      ))}
 
       <div className={styles.insight}>
         <div className={styles.insightTitle}>
@@ -30,8 +62,7 @@ export default function TopPerformers() {
         </div>
 
         <p>
-          Overall performance in Section A-1 has increased by 12% following the
-          last workshop.
+          Select a course to view top GPA performers for that course offering.
         </p>
       </div>
     </aside>

@@ -72,6 +72,7 @@
   font-weight: 800;
   line-height: 1.35;
   margin-bottom: 20px;
+  color: #000;
 }
 
 .location {
@@ -82,12 +83,16 @@
 
 .location span {
   font-size: 22px;
-  color: #334845;
+  color: #4c9d91;
 }
 
 .location p {
-  font-size: 14px;
+  font-size: 18px;
   color: #334845;
+}
+
+.location {
+  color: #00786f; /* icon + text both change */
 }
 
 .meeting .location span,
