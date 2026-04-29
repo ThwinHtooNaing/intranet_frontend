@@ -1,0 +1,96 @@
+.card,
+.office,
+.meeting,
+.empty {
+  min-height: 148px;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+}
+
+.office {
+  background: #e8fffb;
+  border: 1px solid #7ee3d9;
+}
+
+.meeting {
+  background: #fff8f2;
+  border: 1px solid #ffc9aa;
+  color: #9a3412;
+}
+
+.empty {
+  border: 2px dashed #cbd8d6;
+  color: #333;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+}
+
+.meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.code {
+  background: #dff3f1;
+  color: #00786f;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.office .code {
+  background: #00786f;
+  color: #ffffff;
+}
+
+.meeting .code {
+  background: #ff855c;
+  color: #7c2d12;
+}
+
+.meta p {
+  font-size: 15px;
+  color: #111827;
+  line-height: 1.35;
+}
+
+.card h3,
+.office h3,
+.meeting h3 {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 20px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location span {
+  font-size: 22px;
+  color: #334845;
+}
+
+.location p {
+  font-size: 14px;
+  color: #334845;
+}
+
+.meeting .location span,
+.meeting .location p {
+  color: #b56b4d;
+}

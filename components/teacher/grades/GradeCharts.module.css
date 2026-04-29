@@ -1,0 +1,98 @@
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 0.95fr;
+  gap: 34px;
+}
+
+.distribution,
+.progress {
+  background: #ffffff;
+  border: 1px solid #e3ebf3;
+  border-radius: 12px;
+  padding: 24px;
+  min-height: 260px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chartHeader h2,
+.progress h2 {
+  font-size: 20px;
+  color: #111827;
+  font-weight: 800;
+}
+
+.chartHeader span {
+  color: #7b8daa;
+  font-size: 14px;
+}
+
+.fakeChart {
+  height: 190px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  border-bottom: 1px solid #e3ebf3;
+  color: #526789;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.progress {
+  text-align: center;
+}
+
+.progress h2 {
+  text-align: left;
+}
+
+.circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin: 28px auto 24px;
+  background: conic-gradient(#0f9488 70%, #edf2f7 0);
+  display: grid;
+  place-items: center;
+}
+
+.circle > div {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+}
+
+.circle h3 {
+  color: #0f9488;
+  font-size: 28px;
+}
+
+.circle p {
+  color: #7b8daa;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.progress h4 {
+  font-size: 15px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.progress > p {
+  color: #526789;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

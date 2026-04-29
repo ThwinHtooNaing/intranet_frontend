@@ -1,0 +1,140 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #e3ebf3;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.header {
+  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  color: #111827;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.header button {
+  border: none;
+  background: transparent;
+  color: #00786f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.head,
+.row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.8fr 1fr 1fr 1.1fr;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.head {
+  background: #f8fafc;
+  padding: 22px 28px;
+}
+
+.head span {
+  font-size: 12px;
+  color: #596b7a;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.row {
+  min-height: 86px;
+  padding: 0 28px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.row h3 {
+  color: #111827;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.row p {
+  color: #111827;
+  font-size: 15px;
+}
+
+.row p:nth-child(2) {
+  color: #6b7890;
+}
+
+.attendance {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.attendance div {
+  width: 70px;
+  height: 6px;
+  background: #e8eef4;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.attendance span {
+  display: block;
+  height: 100%;
+  background: #19b8aa;
+  border-radius: 999px;
+}
+
+.attendance b {
+  font-size: 14px;
+  color: #111827;
+}
+
+.footer {
+  padding: 22px 28px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  color: #67716f;
+  font-size: 14px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  font-weight: 700;
+  color: #111827;
+}
+
+.pagination .active {
+  background: #00786f;
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .table {
+    overflow-x: auto;
+  }
+
+  .head,
+  .row {
+    min-width: 780px;
+  }
+}

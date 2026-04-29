@@ -1,0 +1,197 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 41, 55, 0.55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 560px;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+}
+
+.header {
+  padding: 28px;
+  border-bottom: 1px solid #edf2f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titleWrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.iconBox {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ccfbf1;
+  color: #00786f;
+  display: grid;
+  place-items: center;
+}
+
+.iconBox span {
+  font-size: 24px;
+}
+
+.header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.header p {
+  font-size: 13px;
+  color: #111827;
+  margin-top: 4px;
+}
+
+.closeBtn {
+  border: none;
+  background: transparent;
+  color: #8ca0bb;
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.body {
+  background: #f8fafc;
+  padding: 28px;
+}
+
+.studentCard {
+  background: #ffffff;
+  border: 1px solid #dce6ef;
+  border-radius: 12px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 40px;
+  margin-bottom: 28px;
+}
+
+.studentCard label {
+  display: block;
+  font-size: 11px;
+  color: #526789;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.studentCard h3 {
+  font-size: 17px;
+  color: #111827;
+  font-weight: 800;
+}
+
+.studentCard p {
+  font-size: 17px;
+  color: #1f2937;
+  line-height: 1.4;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+.field label {
+  display: block;
+  font-size: 16px;
+  color: #111827;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.scoreInput {
+  position: relative;
+}
+
+.scoreInput input,
+.field select {
+  width: 100%;
+  height: 48px;
+  background: #ffffff;
+  border: 1px solid #d7e2ec;
+  border-radius: 8px;
+  padding: 0 18px;
+  font-size: 16px;
+  color: #111827;
+  outline: none;
+}
+
+.scoreInput input {
+  padding-right: 64px;
+}
+
+.scoreInput span {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8ba0bd;
+  font-size: 15px;
+}
+
+.scoreInput input:focus,
+.field select:focus {
+  border-color: #19b8aa;
+  box-shadow: 0 0 0 3px rgba(25, 184, 170, 0.14);
+}
+
+.footer {
+  background: #ffffff;
+  padding: 26px 28px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.cancel {
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  background: #eef2f6;
+  color: #111827;
+  padding: 0 28px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.update {
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  background: #19b8aa;
+  color: #ffffff;
+  padding: 0 28px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(25, 184, 170, 0.28);
+}
+
+@media (max-width: 650px) {
+  .modal {
+    width: calc(100% - 32px);
+  }
+
+  .studentCard,
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}

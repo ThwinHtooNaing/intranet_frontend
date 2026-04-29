@@ -1,0 +1,51 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.card {
+  min-height: 124px;
+  background: #ffffff;
+  border: 1px solid #e3ebf3;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.card p {
+  font-size: 12px;
+  color: #526789;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.card h2 {
+  font-size: 34px;
+  color: #00786f;
+  font-weight: 800;
+}
+
+.card span {
+  font-size: 12px;
+  color: #8ba0bd;
+}
+
+.card h2.danger {
+  color: #e76f51;
+}
+
+.icon {
+  color: #dedede;
+  font-size: 48px;
+}
+
+@media (max-width: 1000px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

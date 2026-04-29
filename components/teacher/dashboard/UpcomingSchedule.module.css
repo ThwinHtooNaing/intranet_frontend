@@ -1,0 +1,91 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #e7edf3;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.header {
+  padding: 22px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.header h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.header button {
+  border: none;
+  background: transparent;
+  color: #00645d;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  gap: 26px;
+  padding: 26px;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.dateBox {
+  min-width: 64px;
+  height: 64px;
+  background: #ecfffb;
+  border-radius: 8px;
+  text-align: center;
+  padding-top: 10px;
+  color: #00786f;
+}
+
+.dateBox span {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dateBox strong {
+  font-size: 26px;
+}
+
+.info h4 {
+  font-size: 19px;
+  margin-bottom: 14px;
+}
+
+.info p {
+  color: #263b5c;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.info :global(.material-symbols-outlined) {
+  font-size: 19px;
+  color: #40516a;
+}
+
+.badge {
+  margin-left: auto;
+  height: fit-content;
+  background: #ecfffb;
+  color: #00786f;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}

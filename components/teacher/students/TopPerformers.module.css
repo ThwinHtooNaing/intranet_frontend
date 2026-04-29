@@ -1,0 +1,72 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #e3ebf3;
+  border-radius: 14px;
+  padding: 28px;
+  min-height: 370px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.header h2 {
+  font-size: 20px;
+  color: #111827;
+  font-weight: 800;
+}
+
+.header span {
+  color: #008b7f;
+  font-size: 13px;
+}
+
+.performer {
+  margin-bottom: 28px;
+}
+
+.performer h3 {
+  color: #111827;
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.performer p {
+  color: #596b7a;
+  font-size: 14px;
+}
+
+.insight {
+  margin-top: 34px;
+  background: #e7fffb;
+  border: 1px solid #9cebe1;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.insightTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.insightTitle span {
+  color: #00786f;
+}
+
+.insightTitle h3 {
+  color: #111827;
+  font-size: 16px;
+}
+
+.insight p {
+  color: #16554f;
+  font-size: 14px;
+  line-height: 1.5;
+}

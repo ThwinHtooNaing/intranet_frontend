@@ -1,0 +1,171 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #e3ebf3;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 34px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.header {
+  padding: 34px 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title h2 {
+  font-size: 20px;
+  color: #111827;
+  font-weight: 800;
+}
+
+.title span {
+  background: #c9fff3;
+  color: #00786f;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.title b {
+  background: #eef2f6;
+  color: #526789;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.icons {
+  display: flex;
+  gap: 24px;
+  color: #7b8daa;
+}
+
+.head,
+.row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 0.7fr 1.1fr 0.8fr 1fr 1.1fr;
+  column-gap: 18px;
+  align-items: center;
+}
+
+.head {
+  background: #f8fafc;
+  padding: 20px 24px;
+}
+
+.head span {
+  font-size: 12px;
+  color: #526789;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.row {
+  min-height: 84px;
+  padding: 0 24px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.row p {
+  font-size: 14px;
+  color: #263b5c;
+}
+
+.grade {
+  width: fit-content;
+  background: #dffcf7;
+  border: 1px solid #9cebe1;
+  color: #00786f;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.orange {
+  background: #fff3e8;
+  border-color: #ffc9aa;
+  color: #c2410c;
+}
+
+.row h3 {
+  color: #0f213d;
+  font-size: 17px;
+}
+
+.row small {
+  color: #9aabc0;
+  font-size: 11px;
+}
+
+.ungraded {
+  color: #8ba0bd !important;
+}
+
+.pending {
+  color: #e76f51 !important;
+}
+
+.row button {
+  border: 1px solid #d7e2ec;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 700;
+  color: #0f213d;
+}
+
+.primaryBtn {
+  background: #00786f !important;
+  color: #ffffff !important;
+  border-color: #00786f !important;
+}
+
+.footer {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  color: #526789;
+  font-size: 14px;
+}
+
+.pagination {
+  display: flex;
+  gap: 12px;
+}
+
+.pagination button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e3ebf3;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.pagination .active {
+  background: #e7fffb;
+  color: #00786f;
+  border: none;
+}
+
+@media (max-width: 1100px) {
+  .table {
+    overflow-x: auto;
+  }
+
+  .head,
+  .row {
+    min-width: 950px;
+  }
+}

@@ -1,0 +1,95 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.card {
+  position: relative;
+  min-height: 180px;
+  background: #ffffff;
+  border: 1px solid #e7edf3;
+  border-radius: 12px;
+  padding: 26px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.icon,
+.iconDark {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-family: "Material Symbols Outlined";
+  font-size: 28px;
+  margin-bottom: 22px;
+}
+
+.icon {
+  background: #ecfffb;
+  color: #0f9488;
+}
+
+.iconDark {
+  background: #75eadf;
+  color: #00645d;
+}
+
+.dots {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  color: #8ca0bb;
+  letter-spacing: 2px;
+}
+
+.label {
+  color: #526789;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card h3 {
+  color: #00645d;
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+
+.green {
+  color: #0a9f3c;
+  font-size: 16px;
+}
+
+.orange {
+  color: #df6b00;
+  font-size: 16px;
+}
+
+.text {
+  color: #526789;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.circle {
+  position: absolute;
+  right: 28px;
+  top: 60px;
+  width: 78px;
+  height: 78px;
+  border: 8px solid #17b9aa;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #0f9488;
+  font-weight: 700;
+}
+
+@media (max-width: 1000px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,38 @@
+.dashboard {
+  width: 100%;
+}
+
+.welcome {
+  margin-bottom: 34px;
+}
+
+.welcome h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.welcome p {
+  font-size: 17px;
+  color: #526789;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 26px;
+  margin-top: 26px;
+}
+
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+@media (max-width: 1000px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}

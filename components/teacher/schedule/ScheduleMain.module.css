@@ -1,0 +1,78 @@
+.page {
+  width: 100%;
+  padding: 38px 36px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 34px;
+}
+
+.top h1 {
+  font-size: 28px;
+  color: #111827;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.top p {
+  color: #111827;
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.printBtn,
+.officeBtn {
+  height: 48px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.printBtn {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  padding: 0 22px;
+  color: #111827;
+}
+
+.officeBtn {
+  background: #19b8aa;
+  border: none;
+  padding: 0 28px;
+  color: #062f2c;
+}
+
+.weekGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 26px;
+}
+
+@media (max-width: 1200px) {
+  .weekGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 650px) {
+  .weekGrid {
+    grid-template-columns: 1fr;
+  }
+}

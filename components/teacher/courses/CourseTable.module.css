@@ -1,0 +1,228 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #dce6ef;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.header {
+  padding: 30px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titleWrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.titleWrap h2 {
+  font-size: 22px;
+  color: #111827;
+}
+
+.titleWrap span {
+  background: #ddfff7;
+  color: #00786f;
+  border: 1px solid #9cebe1;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+}
+
+.filters button {
+  height: 44px;
+  border: 1px solid #dce6ef;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 0 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.iconBtn {
+  width: 44px;
+  padding: 0 !important;
+}
+
+.tableHead,
+.tableRow {
+  display: grid;
+  grid-template-columns: 140px 1.8fr 120px 140px 210px;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.tableHead {
+  background: #f8fafc;
+  border-top: 1px solid #edf2f7;
+  border-bottom: 1px solid #edf2f7;
+  padding: 20px 28px;
+}
+
+.tableHead span {
+  font-size: 12px;
+  color: #40516a;
+  letter-spacing: 1.6px;
+  font-weight: 700;
+}
+
+.tableRow {
+  min-height: 108px;
+  padding: 0 28px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.code {
+  font-size: 18px;
+  color: #0f213d;
+}
+
+.courseTitle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.courseIcon {
+  width: 36px;
+  height: 36px;
+  background: #c9fff3;
+  color: #00786f;
+  border-radius: 5px;
+  display: grid;
+  place-items: center;
+}
+
+.courseIcon span {
+  font-size: 18px;
+}
+
+.courseTitle h3 {
+  font-size: 18px;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.courseTitle p {
+  font-size: 13px;
+  color: #9aabc0;
+}
+
+.term {
+  width: fit-content;
+  background: #eaf3ff;
+  border: 1px solid #d3e5f9;
+  color: #004de6;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.progress div {
+  width: 34px;
+  height: 7px;
+  background: #e8eef4;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress div span {
+  display: block;
+  height: 100%;
+  background: #19b8aa;
+  border-radius: 20px;
+}
+
+.progress b {
+  font-size: 14px;
+  color: #253957;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.actions button {
+  width: 145px;
+  height: 54px;
+  border: none;
+  border-radius: 8px;
+  background: #eef4f9;
+  color: #0f213d;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.actions button span {
+  font-size: 18px;
+}
+
+.more {
+  color: #8ea2bd;
+  font-size: 24px;
+}
+
+.footer {
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  color: #526789;
+  font-size: 14px;
+}
+
+.pagination {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.pagination button {
+  width: 34px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: #40516a;
+}
+
+.pageActive {
+  border: 1px solid #cfe6e3 !important;
+  border-radius: 5px;
+  color: #00786f !important;
+}
+
+@media (max-width: 1100px) {
+  .table {
+    overflow-x: auto;
+  }
+
+  .tableHead,
+  .tableRow {
+    min-width: 900px;
+  }
+}
