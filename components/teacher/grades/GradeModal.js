@@ -119,6 +119,18 @@ export default function GradeModal({ onClose, data }) {
             className={styles.update}
             disabled={data.isFinal}
             onClick={async () => {
+              if (!gradeSymbolId) {
+                alert("Please select a grade symbol.");
+                return;
+              }
+
+              if (isFinal && !data.isFinal) {
+                const confirmFinal = confirm(
+                  "Finalizing this grade will lock it permanently. You cannot change it again. Continue?",
+                );
+
+                if (!confirmFinal) return;
+              }
               const res = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/grades/update/${data.gradeId}`,
                 {

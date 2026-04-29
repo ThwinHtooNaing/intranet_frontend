@@ -75,7 +75,45 @@ export default function GradesMain() {
             </select>
           </div>
 
-          <button>
+          <button
+            // disabled={!selectedCourseId}
+            onClick={async () => {
+              // if (!selectedCourseId) {
+              //   alert("Select course first");
+              //   return;
+              // }
+
+              try {
+                const res = await fetch(
+                  `${process.env.NEXT_PUBLIC_API_URL}/api/teachers/course-offerings/${3}/export`,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                  },
+                );
+
+                if (!res.ok) {
+                  alert("Failed to export PDF");
+                  return;
+                }
+
+                const blob = await res.blob();
+                const url = window.URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "grades-report.pdf";
+                document.body.appendChild(a);
+                a.click();
+
+                a.remove();
+                window.URL.revokeObjectURL(url);
+              } catch (err) {
+                console.error("PDF export error:", err);
+              }
+            }}
+          >
             <span className="material-symbols-outlined">download</span>
             Export PDF
           </button>
