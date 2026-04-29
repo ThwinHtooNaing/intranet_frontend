@@ -1,15 +1,44 @@
 "use client";
 
 import styles from "./GradeModal.module.css";
+import {useState,useEffect} from 'react';
 
-export default function GradeModal({ onClose }) {
+export default function GradeModal({ onClose, data }) {
+  if (!data) return null;
+  const [symbols, setSymbols] = useState([]);
+
+  useEffect(() => {
+    const fetchSymbols = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/grades/grade-symbol`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        const data = await res.json();
+        setSymbols(data);
+      } catch (err) {
+        console.error("Failed to load symbols:", err);
+      }
+    };
+
+    fetchSymbols();
+  }, []);
+  const [gradeSymbolId, setGradeSymbolId] = useState(data?.gradeSymbolId || "");
+  const [isFinal, setIsFinal] = useState(data?.isFinal ?? false);
+
+
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.header}>
           <div className={styles.titleWrap}>
             <div className={styles.iconBox}>
-              <span className="material-symbols-outlined">icon</span>
+              <span className="material-symbols-outlined">grade</span>
             </div>
 
             <div>
@@ -27,44 +56,56 @@ export default function GradeModal({ onClose }) {
           <div className={styles.studentCard}>
             <div>
               <label>STUDENT NAME</label>
-              <h3>Alex Thompson</h3>
+              <h3>{data.fullName}</h3>
             </div>
 
             <div>
               <label>STUDENT ID</label>
-              <p>STU-2024-0012</p>
+              <p>{data.studentCode}</p>
             </div>
 
             <div>
               <label>COURSE</label>
-              <p>CS101 - Intro to Programming</p>
+              <p>
+                {data.courseCode} - {data.courseTitle}
+              </p>
             </div>
 
             <div>
               <label>MAJOR</label>
-              <p>Comp. Science</p>
+              <p>{data.majorName || "-"}</p>
             </div>
           </div>
 
           <div className={styles.formGrid}>
             <div className={styles.field}>
-              <label>Current Score</label>
-              <div className={styles.scoreInput}>
-                <input type="number" defaultValue="85" />
-                <span>/ 100</span>
-              </div>
-            </div>
-
-            <div className={styles.field}>
               <label>Grade Symbol</label>
-              <select defaultValue="B+">
-                <option>A</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B</option>
-                <option>C+</option>
-                <option>C</option>
+
+              <select
+                value={gradeSymbolId}
+                onChange={(e) => setGradeSymbolId(e.target.value)}
+              >
+                <option value="">Select grade</option>
+
+                {symbols.map((s) => (
+                  <option key={s.symbolId} value={s.symbolId}>
+                    {s.gradeSymbol}
+                  </option>
+                ))}
               </select>
+            </div>
+            <div className={styles.field}>
+              <label>Finalize Grade</label>
+
+              <div className={styles.checkboxRow}>
+                <input
+                  type="checkbox"
+                  checked={isFinal}
+                  onChange={(e) => setIsFinal(e.target.checked)}
+                  disabled={data.isFinal}
+                />
+                <span>{isFinal ? "Final (Locked)" : "Draft"}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -74,8 +115,35 @@ export default function GradeModal({ onClose }) {
             Cancel
           </button>
 
-          <button className={styles.update}>
-            Update Grade
+          <button
+            className={styles.update}
+            disabled={data.isFinal}
+            onClick={async () => {
+              const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/api/grades/update/${data.gradeId}`,
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                  body: JSON.stringify({
+                    gradeSymbolId: Number(gradeSymbolId),
+                    isFinal: isFinal,
+                  }),
+                },
+              );
+
+              if (!res.ok) {
+                const text = await res.text();
+                alert(text);
+                return;
+              }
+
+              onClose();
+            }}
+          >
+            {data.isFinal ? "Finalized" : "Update Grade"}
           </button>
         </div>
       </div>

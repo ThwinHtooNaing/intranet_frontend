@@ -26,31 +26,51 @@
   gap: 14px;
 }
 
-.filters button {
+.filters > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filters label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #596b7a;
+  letter-spacing: 1px;
+}
+
+.filters select {
   height: 48px;
   min-width: 220px;
   border: 1px solid #b9cac8;
   background: #ffffff;
   border-radius: 12px;
-  padding: 0 18px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  padding: 0 14px;
   font-size: 15px;
+  color: #2c3e50;
+  outline: none;
+  cursor: pointer;
+
+  /* remove ugly default styles */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* custom dropdown arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23526b89' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
 }
 
-.filters span {
-  font-size: 12px;
-  color: #596b7a;
-  font-weight: 800;
-  letter-spacing: 1px;
+.filters select:disabled {
+  background-color: #f5f7f9;
+  cursor: not-allowed;
+  color: #9aa7b2;
 }
 
-.filters b {
-  margin-left: auto;
-  color: #526789;
+.filters select:focus {
+  border-color: #4c7cf3;
 }
-
 .contentGrid {
   display: grid;
   grid-template-columns: 2.1fr 1fr;
