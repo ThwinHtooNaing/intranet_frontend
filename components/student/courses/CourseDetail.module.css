@@ -1,0 +1,250 @@
+.page {
+  padding: 28px 32px 50px;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.backBtn {
+  border: none;
+  background: transparent;
+  color: var(--primary-dark);
+  font-weight: 800;
+  cursor: pointer;
+  margin-bottom: 18px;
+}
+
+.kicker {
+  color: var(--primary-dark);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  margin-bottom: 10px;
+}
+
+.page h1 {
+  margin: 0 0 14px;
+  color: var(--text-main);
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.infoRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.infoRow span,
+.infoRow strong {
+  background: white;
+  border: 1px solid var(--border);
+  color: #4b6380;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.infoRow strong {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  text-transform: uppercase;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.materialCard,
+.topCard {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.materialCard {
+  padding: 22px;
+}
+
+.materialCard h2,
+.topCard h2,
+.helpCard h2 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 20px;
+}
+
+.materialItem {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  padding: 24px 0;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.materialItem:last-child {
+  border-bottom: none;
+}
+
+.iconBox {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.materialItem h3 {
+  margin: 0 0 6px;
+  color: var(--text-main);
+  font-size: 16px;
+}
+
+.materialItem p {
+  margin: 0 0 10px;
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tags span {
+  background: #edf5ff;
+  color: #37516f;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.tags span:last-child {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.sideArea {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.topCard {
+  padding: 18px;
+}
+
+.sideHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.sideHeader span {
+  background: #dff4ff;
+  color: var(--primary-dark);
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.tableHead,
+.studentRow {
+  display: grid;
+  grid-template-columns: 55px 1fr 45px;
+  align-items: center;
+}
+
+.tableHead {
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 12px 0;
+}
+
+.studentRow {
+  padding: 14px 0;
+  border-top: 1px solid #eef2f7;
+}
+
+.studentRow b {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.studentRow h4 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.studentRow p {
+  margin: 3px 0 0;
+  color: var(--text-sub);
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.studentRow strong {
+  color: var(--primary-dark);
+}
+
+.currentUser {
+  background: var(--primary-light);
+  margin: 8px -10px 0;
+  padding: 14px 10px;
+  border-radius: 10px;
+}
+
+.currentUser b {
+  background: var(--primary);
+  color: white;
+}
+
+.helpCard {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.2);
+}
+
+.helpCard h2 {
+  color: white;
+  margin-bottom: 12px;
+}
+
+.helpCard p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.helpCard button {
+  margin-top: 12px;
+  border: none;
+  background: white;
+  color: var(--primary-dark);
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 900;
+  cursor: pointer;
+}

@@ -1,0 +1,90 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.card h2 {
+  margin: 0 0 18px;
+  color: var(--text-main);
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: var(--text-sub);
+  font-size: 15px;
+}
+
+.row strong {
+  color: var(--text-main);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.progress {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.progress div {
+  width: 75%;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.small {
+  margin: 10px 0 0;
+  color: var(--text-sub);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.classItem {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.classItem:hover {
+  background: var(--primary-light);
+}
+
+.classItem span {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--primary-dark);
+}
+
+.classItem h3 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.classItem p {
+  margin: 4px 0 0;
+  color: var(--text-sub);
+  font-size: 13px;
+}

@@ -1,0 +1,73 @@
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 34px 24px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.logoIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoBox h2 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.logoBox p {
+  margin: 4px 0 0;
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.navItem,
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  color: #17324d;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.navItem:hover,
+.active {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.logout {
+  color: #17324d;
+}

@@ -1,0 +1,35 @@
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.card h2 {
+  margin-bottom: 16px;
+  color: var(--text-main);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  font-size: 12px;
+  color: #94a3b8;
+  padding: 12px;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 16px 12px;
+  border-top: 1px solid #f1f5f9;
+  color: var(--text-main);
+}
+
+.grade {
+  color: var(--primary-dark) !important;
+  font-weight: 800;
+}

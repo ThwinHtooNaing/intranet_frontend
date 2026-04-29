@@ -1,0 +1,20 @@
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 120px;
+  margin-top: 20px;
+}
+
+.bars div {
+  flex: 1;
+  background: var(--primary);
+  border-radius: 6px;
+}

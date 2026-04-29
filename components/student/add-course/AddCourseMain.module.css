@@ -1,0 +1,39 @@
+.page {
+  padding: 28px 32px;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.header p {
+  margin-top: 6px;
+  color: var(--text-sub);
+}
+
+.notice {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 14px 18px;
+  border-radius: 10px;
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 26px;
+}

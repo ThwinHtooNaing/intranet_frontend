@@ -1,14 +1,29 @@
-.studentLayout {
+.studentShell {
+  display: flex;
+  min-height: 100vh;
+
+  --primary: #0ea5e9;
+  --primary-dark: #0284c7;
+  --primary-light: #e0f2fe;
+
+  --bg: #f5f9ff;
+  --card: #ffffff;
+
+  --text-main: #0f172a;
+  --text-sub: #64748b;
+
+  --border: #e2e8f0;
+
+  background: var(--bg);
+}
+
+.studentMain {
+  flex: 1;
+  margin-left: 260px;
   min-height: 100vh;
 }
 
-.header {
-  padding: 18px 24px;
-  background: #16a34a;
-  color: white;
-}
-
-.content {
-  padding: 24px;
-  background: #f0fff4;
+.studentContent {
+  padding: 0;
+  background: var(--bg);
 }

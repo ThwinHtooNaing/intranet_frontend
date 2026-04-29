@@ -1,0 +1,22 @@
+.dashboard {
+  padding: 28px 32px;
+  background: #f5f7fb;
+  min-height: 100vh;
+}
+
+.hero {
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-size: 34px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.hero p {
+  margin-top: 6px;
+  font-size: 16px;
+  color: #334155;
+}
