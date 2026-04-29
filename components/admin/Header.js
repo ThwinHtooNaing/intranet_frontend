@@ -1,16 +1,18 @@
 'use client';
 
 import styles from '@/app/admin/admin.module.css';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-/**
- * Header component.
- *
- * Props (optional):
- *   onAddUser   – callback to open Add User modal
- *   onNewCourse – callback to open New Course modal
- */
 export default function Header({ onAddUser, onNewCourse }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
   return (
     <header className={styles.header}>
       {/* Search Bar */}
@@ -25,32 +27,7 @@ export default function Header({ onAddUser, onNewCourse }) {
 
       {/* Action Buttons */}
       <div className={styles.headerActions}>
-        <Link href="/admin/reports" className={styles.btnOutline}>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" />
-          </svg>
-          Reports
-        </Link>
-
-        {onAddUser ? (
-          <button className={styles.btnOutline} onClick={onAddUser}>
-            + Add User
-          </button>
-        ) : (
-          <Link href="/admin/students" className={styles.btnOutline}>
-            + Add User
-          </Link>
-        )}
-
-        {onNewCourse ? (
-          <button className={styles.btnPrimary} onClick={onNewCourse}>
-            + New Course
-          </button>
-        ) : (
-          <Link href="/admin/courses" className={styles.btnPrimary}>
-            + New Course
-          </Link>
-        )}
+        <span className={styles.userEmail}>{user ? user.email : "Guest"}</span>
       </div>
     </header>
   );

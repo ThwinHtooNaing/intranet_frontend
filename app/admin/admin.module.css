@@ -46,6 +46,8 @@
   height: 100vh;
   z-index: 100;
   padding: 0;
+  
+  
 }
 
 .sidebarLogo {
@@ -59,7 +61,7 @@
 
 .sidebarNav {
   flex: 1;
-  padding: 12px 0;
+  /* padding: 12px 0; */
 }
 
 .navItem {
@@ -216,7 +218,7 @@
    =========================== */
 .statCardsRow {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   grid-column: 1 / -1;
 }
@@ -415,9 +417,6 @@
   background: var(--bg-page);
 }
 
-/* ===========================
-   PENDING REQUESTS TABLE
-   =========================== */
 .tableWrap {
   overflow-x: auto;
 }
@@ -528,6 +527,31 @@
   font-size: 18px;
   padding: 2px 6px;
   border-radius: 4px;
+}
+
+.lockBtn {
+  background: red;
+  border: none;
+  cursor: pointer;
+
+
+  font-size: 13px;
+  padding: 6px;
+  border-radius: 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.lockBtn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.lockBtn:active {
+  transform: scale(0.95);
 }
 
 .moreBtn:hover {
@@ -782,4 +806,35 @@
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0);    }
+}
+
+.logout {
+  width: 100%;
+  margin-top: auto; /* pushes it to bottom */
+  padding: 10px 24px;
+  font-size: 14px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-medium);
+  text-align: left;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+
+.logout:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.logoutTxt{
+  margin-left: 11px;
+}
+
+.userEmail {
+  font-size: 13px;
+  color: var(--text-medium);
 }

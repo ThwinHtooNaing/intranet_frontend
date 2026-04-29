@@ -62,7 +62,6 @@ export default function SignupStudentPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Generate student code
   const generateStudentCode = () => {
     const prefix = "STU";
     const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();

@@ -1,38 +1,10 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useMemo } from "react";
 import styles from './admin.module.css';
 import Modal from '@/components/admin/Modal';
 import Toast from '@/components/admin/Toast';
 
-// ── Static Data ───────────────────────────────────────────────────────────────
-
-const stats = [
-  {
-    label: 'Total Students',
-    value: '14,285',
-    meta: '+2.4% vs last semester',
-    highlight: '+2.4%',
-    icon: '🎓',
-    metaClass: styles.statMetaGreen,
-  },
-  {
-    label: 'Active Faculty',
-    value: '1,142',
-    meta: '+12 new hires this month',
-    highlight: '+12',
-    icon: '👥',
-    metaClass: styles.statMetaGreen,
-  },
-  {
-    label: 'Active Courses',
-    value: '856',
-    meta: '45 pending approval',
-    highlight: '45',
-    icon: '📋',
-    metaClass: styles.statMetaOrange,
-  },
-];
 
 const registrationSteps = [
   { title: 'Setup Academic Year',         status: 'Completed',   desc: 'Academic year 2023-2024 configured',              type: 'done'     },
@@ -41,11 +13,6 @@ const registrationSteps = [
   { title: 'Finalize Schedules',          status: 'Pending',     desc: 'Review and approve course schedules',             type: 'pending'  },
 ];
 
-const systemOverview = [
-  { label: 'Students Enrolled',  value: '14,285', pct: 88 },
-  { label: 'Active Teachers',    value: '1,142',  pct: 72 },
-  { label: 'Course Completion',  value: '92%',    pct: 92 },
-];
 
 const quickActions = [
   { icon: '👤', label: 'Add New User',       action: 'addUser'    },
@@ -54,14 +21,8 @@ const quickActions = [
   { icon: '📊', label: 'Generate Report',    action: 'report'     },
 ];
 
-const initialRequests = [
-  { type: 'New Course Syllabus', subtype: 'CS50 Introduction to Computer Science', submitter: 'Prof. Malan',   initials: 'PM', date: 'Oct 24, 2023', status: 'Review',   statusClass: styles.statusReview   },
-  { type: 'Schedule Change',     subtype: 'MATH21a Multivariable Calculus',        submitter: 'Dr. Smith',     initials: 'DS', date: 'Oct 23, 2023', status: 'Review',   statusClass: styles.statusReview   },
-  { type: 'Grade Appeal',        subtype: 'Student ID: 8472910',                   submitter: 'Admin Dept',    initials: 'AD', date: 'Oct 22, 2023', status: 'Urgent',   statusClass: styles.statusUrgent   },
-  { type: 'Facility Request',    subtype: 'Science Center Hall B',                 submitter: 'Prof. Johnson', initials: 'PJ', date: 'Oct 21, 2023', status: 'Approved', statusClass: styles.statusApproved },
-];
 
-// ── Small helper components ───────────────────────────────────────────────────
+
 
 function StepIcon({ type, index }) {
   if (type === 'done') return <span className={`${styles.stepIcon} ${styles.stepIconDone}`}>✓</span>;
@@ -74,28 +35,225 @@ function StepBadge({ type, label }) {
   return <span className={`${styles.badge} ${cls}`}>{label}</span>;
 }
 
+
 function EnrollmentChart() {
-  const points = [[0, 65], [20, 50], [40, 28], [60, 32], [80, 38], [100, 35]];
-  const toSvg = points.map(([x, y]) => `${(x / 100) * 260},${y}`).join(' ');
+  const [data, setData] = useState([]);
+
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/enrollments/enrollment-chart")
+      .then((res) => res.json())
+      .then(setData)
+      .catch(console.error);
+  }, []);
+
+  if (!data.length) return null;
+
+
+  const maxValue = Math.max(...data.map(d => d.value));
+
+  const points = data.map((d, i) => {
+    const x = (i / (data.length - 1)) * 260;
+    const y = 70 - (d.value / maxValue) * 60; 
+    return [x, y];
+  });
+
+  const toSvg = points.map(([x, y]) => `${x},${y}`).join(' ');
+
   return (
-    <svg viewBox="0 0 260 80" className={styles.trendChart} xmlns="http://www.w3.org/2000/svg">
-      <polyline points={toSvg} fill="none" stroke="#e05c2a" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-      {['Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((m, i) => (
-        <text key={m} x={(i / 4) * 240 + 10} y="76" fontSize="9" fill="#aaa">{m}</text>
+    <svg viewBox="0 0 260 80" className={styles.trendChart}>
+      
+      {/* Line */}
+      <polyline
+        points={toSvg}
+        fill="none"
+        stroke="#e05c2a"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Labels */}
+      {data.map((d, i) => (
+        <text
+          key={d.month}
+          x={(i / (data.length - 1)) * 240 + 10}
+          y="76"
+          fontSize="9"
+          fill="#aaa"
+        >
+          {d.month}
+        </text>
       ))}
+
     </svg>
   );
 }
 
-// ── Page ─────────────────────────────────────────────────────────────────────
+
 
 export default function AdminDashboardPage() {
-  const [modal, setModal]     = useState(null); // null | 'addUser' | 'activatePortal'
-  const [toast, setToast]     = useState(null); // null | string
+  const [modal, setModal]     = useState(null); 
   const [userForm, setUserForm] = useState({ name: '', email: '', role: 'Student' });
 
+ const [audits, setAudits] = useState([]);
+ const [toast, setToast] = useState(null);
+ const closeToast = useCallback(() => setToast(null), []);
+
+ useEffect(() => {
+   fetch("http://localhost:8080/api/admins/audits")
+     .then((res) => res.json())
+     .then((data) => setAudits(data))
+     .catch((err) => console.error(err));
+ }, []);
+
+ const initialRequests = useMemo(() => {
+   return audits.slice(0, 5).map((a) => {
+     const formattedDate = new Date(a.date).toLocaleDateString("en-US", {
+       month: "short",
+       day: "2-digit",
+       year: "numeric",
+     });
+
+     let status = "Review";
+     let statusClass = styles.statusReview;
+
+     if (a.status === "Critical") {
+       status = "Urgent";
+       statusClass = styles.statusUrgent;
+     } else if (a.status === "Completed") {
+       status = "Approved";
+       statusClass = styles.statusApproved;
+     }
+
+     return {
+       type: a.action.replaceAll("_", " "),
+       subtype: a.entity,
+       submitter: a.fullName,
+       initials: a.fullName
+         .split(" ")
+         .map((n) => n[0])
+         .join(""),
+       date: formattedDate,
+       status,
+       statusClass,
+     };
+   });
+ }, [audits]);
+
+  const [stats, setStats] = useState([
+    {
+      label: "Total Students",
+      value: "0",
+      meta: "",
+      icon: "🎓",
+      metaClass: styles.statMetaGreen,
+    },
+    {
+      label: "Active Faculty",
+      value: "0",
+      meta: "",
+      icon: "👥",
+      metaClass: styles.statMetaGreen,
+    },
+    {
+      label: "Active Courses",
+      value: "0",
+      meta: "",
+      icon: "📋",
+      metaClass: styles.statMetaOrange,
+    },
+  ]);
+
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const [students, faculty, courses, teachers] = await Promise.all([
+          fetch("http://localhost:8080/api/admins/student-counts").then((res) =>
+            res.json(),
+          ),
+          fetch("http://localhost:8080/api/admins/faculty-counts").then((res) =>
+            res.json(),
+          ),
+          fetch("http://localhost:8080/api/admins/course-active-counts").then(
+            (res) => res.json(),
+          ),
+          fetch("http://localhost:8080/api/admins/teacher-active-counts").then(
+            (res) => res.json(),
+          ),
+        ]);
+
+        setStats([
+          {
+            label: "Total Students",
+            value: students.toLocaleString(),
+            meta: "",
+            icon: "🎓",
+            metaClass: styles.statMetaGreen,
+          },
+          {
+            label: "Active Faculty",
+            value: faculty.toLocaleString(),
+            meta: "",
+            icon: "👥",
+            metaClass: styles.statMetaGreen,
+          },
+          {
+            label: "Active Courses",
+            value: courses.toLocaleString(),
+            meta: "",
+            icon: "📋",
+            metaClass: styles.statMetaOrange,
+          },
+          {
+            label: "Active Teachers",
+            value: teachers.toLocaleString(),
+            meta: "",
+            icon: "👨‍🏫",
+            metaClass: styles.statMetaGreen,
+          },
+        ]);
+      } catch (err) {
+        console.error("Failed to load stats", err);
+      }
+    }
+
+    fetchStats();
+  }, []);
+
+  const [systemOverview, setSystemOverview] = useState([]);
+
+  useEffect(() => {
+    async function loadOverview() {
+      const res = await fetch(
+        "http://localhost:8080/api/admins/system-overview",
+      );
+      const data = await res.json();
+
+      const studentPct = Math.round((data.students / 200) * 100); // temp max
+      const teacherPct = Math.round(
+        (data.teachersActive / data.teachersTotal) * 100,
+      );
+
+      setSystemOverview([
+        {
+          label: "Students Enrolled",
+          value: data.students.toLocaleString(),
+          pct: studentPct,
+        },
+        {
+          label: "Active Teachers",
+          value: data.teachersActive.toLocaleString(),
+          pct: teacherPct,
+        },
+
+      ]);
+    }
+
+    loadOverview();
+  }, []);
+
   const closeModal = useCallback(() => setModal(null), []);
-  const closeToast = useCallback(() => setToast(null), []);
 
   function handleQuickAction(action) {
     if (action === 'addUser') {
@@ -121,9 +279,10 @@ export default function AdminDashboardPage() {
     setToast('Student portal activated successfully');
   }
 
+  console.log(initialRequests)
+
   return (
     <main className={styles.pageContent}>
-
       {/* ── Stat Cards ── */}
       <div className={styles.statCardsRow}>
         {stats.map((s) => (
@@ -134,8 +293,8 @@ export default function AdminDashboardPage() {
             </div>
             <div className={styles.statValue}>{s.value}</div>
             <div className={`${styles.statMeta} ${s.metaClass}`}>
-              <span>{s.highlight}</span>{' '}
-              {s.meta.replace(s.highlight, '').trim()}
+              <span>{s.highlight}</span>{" "}
+              {s.meta.replace(s.highlight, "").trim()}
             </div>
           </div>
         ))}
@@ -143,11 +302,12 @@ export default function AdminDashboardPage() {
 
       {/* ── Left Column ── */}
       <div className={styles.leftColumn}>
-
         {/* Course Registration */}
         <div className={styles.card}>
           <div className={styles.cardTitle}>Open Course Registration</div>
-          <div className={styles.cardSubtitle}>Complete these steps to activate the student portal</div>
+          <div className={styles.cardSubtitle}>
+            Complete these steps to activate the student portal
+          </div>
 
           <div className={styles.stepsList}>
             {registrationSteps.map((step, i) => (
@@ -165,10 +325,16 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className={styles.cardActions}>
-            <button className={styles.btnPrimary} onClick={() => setModal('activatePortal')}>
+            <button
+              className={styles.btnPrimary}
+              onClick={() => setModal("activatePortal")}
+            >
               Activate Portal
             </button>
-            <button className={styles.btnSecondary} onClick={() => setToast('Settings saved')}>
+            <button
+              className={styles.btnSecondary}
+              onClick={() => setToast("Settings saved")}
+            >
               Review Settings
             </button>
           </div>
@@ -178,7 +344,7 @@ export default function AdminDashboardPage() {
         <div className={styles.card}>
           <div className={styles.cardTitle}>Pending Requests</div>
           <div className={styles.tableWrap}>
-            <table>
+            <table className={styles.table}>
               <thead>
                 <tr>
                   <th className={styles.tableHeader}>Request Type</th>
@@ -190,7 +356,10 @@ export default function AdminDashboardPage() {
               </thead>
               <tbody>
                 {initialRequests.map((req) => (
-                  <tr className={styles.tableRow} key={req.type + req.date}>
+                  <tr
+                    className={styles.tableRow}
+                    key={req.type + req.date + req.submitter}
+                  >
                     <td className={styles.tableCell}>
                       <div className={styles.reqType}>{req.type}</div>
                       <div className={styles.reqSubtype}>{req.subtype}</div>
@@ -201,11 +370,21 @@ export default function AdminDashboardPage() {
                         {req.submitter}
                       </div>
                     </td>
-                    <td className={styles.tableCell} style={{ color: 'var(--text-light)', whiteSpace: 'nowrap' }}>
+                    <td
+                      className={styles.tableCell}
+                      style={{
+                        color: "var(--text-light)",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
                       {req.date}
                     </td>
                     <td className={styles.tableCell}>
-                      <span className={`${styles.statusBadge} ${req.statusClass}`}>{req.status}</span>
+                      <span
+                        className={`${styles.statusBadge} ${req.statusClass}`}
+                      >
+                        {req.status}
+                      </span>
                     </td>
                     <td className={styles.tableCell}>
                       <button
@@ -225,7 +404,6 @@ export default function AdminDashboardPage() {
 
       {/* ── Right Panel ── */}
       <div className={styles.rightPanel}>
-
         {/* System Overview */}
         <div className={styles.panelCard}>
           <div className={styles.panelTitle}>System Overview</div>
@@ -236,7 +414,10 @@ export default function AdminDashboardPage() {
                 <span className={styles.overviewValue}>{item.value}</span>
               </div>
               <div className={styles.progressBar}>
-                <div className={styles.progressFill} style={{ width: `${item.pct}%` }} />
+                <div
+                  className={styles.progressFill}
+                  style={{ width: `${item.pct}%` }}
+                />
               </div>
             </div>
           ))}
@@ -262,14 +443,18 @@ export default function AdminDashboardPage() {
         {/* Enrollment Trend */}
         <div className={styles.panelCard}>
           <div className={styles.panelTitle}>Enrollment Trends</div>
-          <div className={styles.trendLabel}>Fall Semester 2023</div>
+          <div className={styles.trendLabel}>Fall Semester 2026</div>
           <EnrollmentChart />
         </div>
       </div>
 
       {/* ── Add User Modal ── */}
-      {modal === 'addUser' && (
-        <Modal title="Add New User" onClose={closeModal} onSubmit={handleAddUser}>
+      {modal === "addUser" && (
+        <Modal
+          title="Add New User"
+          onClose={closeModal}
+          onSubmit={handleAddUser}
+        >
           <div className={styles.formGroup}>
             <label className={styles.formLabel}>Full Name</label>
             <input
@@ -277,7 +462,9 @@ export default function AdminDashboardPage() {
               type="text"
               placeholder="e.g. Jane Smith"
               value={userForm.name}
-              onChange={(e) => setUserForm({ ...userForm, name: e.target.value })}
+              onChange={(e) =>
+                setUserForm({ ...userForm, name: e.target.value })
+              }
             />
           </div>
           <div className={styles.formGroup}>
@@ -287,7 +474,9 @@ export default function AdminDashboardPage() {
               type="email"
               placeholder="e.g. jane@university.edu"
               value={userForm.email}
-              onChange={(e) => setUserForm({ ...userForm, email: e.target.value })}
+              onChange={(e) =>
+                setUserForm({ ...userForm, email: e.target.value })
+              }
             />
           </div>
           <div className={styles.formGroup}>
@@ -295,7 +484,9 @@ export default function AdminDashboardPage() {
             <select
               className={styles.formInput}
               value={userForm.role}
-              onChange={(e) => setUserForm({ ...userForm, role: e.target.value })}
+              onChange={(e) =>
+                setUserForm({ ...userForm, role: e.target.value })
+              }
             >
               <option>Student</option>
               <option>Teacher</option>
@@ -306,17 +497,23 @@ export default function AdminDashboardPage() {
       )}
 
       {/* ── Activate Portal Confirmation ── */}
-      {modal === 'activatePortal' && (
-        <Modal title="Activate Student Portal" onClose={closeModal} onSubmit={handleActivatePortal}>
-          <p style={{ fontSize: '14px', color: 'var(--text-medium)', margin: 0 }}>
-            This will open the registration period for all students. Are you sure you want to activate the portal?
+      {modal === "activatePortal" && (
+        <Modal
+          title="Activate Student Portal"
+          onClose={closeModal}
+          onSubmit={handleActivatePortal}
+        >
+          <p
+            style={{ fontSize: "14px", color: "var(--text-medium)", margin: 0 }}
+          >
+            This will open the registration period for all students. Are you
+            sure you want to activate the portal?
           </p>
         </Modal>
       )}
 
       {/* ── Toast ── */}
       {toast && <Toast message={toast} onClose={closeToast} />}
-
     </main>
   );
 }
