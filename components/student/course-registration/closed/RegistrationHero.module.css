@@ -1,0 +1,119 @@
+.hero {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  align-items: center;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.closed {
+  display: inline-block;
+  background: #fee2e2;
+  color: #dc2626;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.content h1 {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.content p {
+  max-width: 1200px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.dateBox {
+  display: inline-flex;
+  flex-direction: column;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 22px;
+}
+
+.dateBox span {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+}
+
+.dateBox strong {
+  margin-top: 4px;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.primary,
+.disabled {
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 8px;
+  font-weight: 900;
+  border: none;
+}
+
+.primary {
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+}
+
+.disabled {
+  background: #eef2f7;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.imageBox {
+  display: flex;
+  justify-content: center;
+}
+
+.fakeImage {
+  width: 280px;
+  height: 190px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #dff4ff, #bae6fd);
+  position: relative;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
+}
+
+.screen {
+  width: 130px;
+  height: 80px;
+  background: white;
+  border: 8px solid #334155;
+  border-radius: 8px;
+  position: absolute;
+  left: 70px;
+  top: 42px;
+}
+
+.book {
+  width: 180px;
+  height: 38px;
+  background: white;
+  border-radius: 6px;
+  position: absolute;
+  left: 48px;
+  bottom: 32px;
+}

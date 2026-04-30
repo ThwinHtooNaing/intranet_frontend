@@ -1,0 +1,90 @@
+.page {
+  padding: 28px 32px;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 34px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.header p {
+  margin-top: 8px;
+  max-width: 720px;
+  color: var(--text-sub);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.addBtn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 26px;
+  font-weight: 900;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.addBtn:hover {
+  background: var(--primary-dark);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 26px;
+}
+
+.filterBox {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.filterBox label {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.filterBox input,
+.filterBox select {
+  width: 100%;
+  height: 46px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0 14px;
+  background: white;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.infoBox {
+  margin-top: 28px;
+  background: var(--primary-light);
+  border: 1px solid #bae6fd;
+  color: var(--primary-dark);
+  padding: 18px 22px;
+  border-radius: 12px;
+}

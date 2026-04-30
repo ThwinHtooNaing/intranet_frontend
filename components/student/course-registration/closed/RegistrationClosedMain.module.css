@@ -1,0 +1,59 @@
+.page {
+  padding: 28px 32px;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 24px;
+  margin-top: 22px;
+}
+
+.helpBar {
+  margin-top: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.helpBar h3 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 16px;
+}
+
+.helpBar p {
+  margin: 4px 0 0;
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.docBtn,
+.ticketBtn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.docBtn {
+  background: #f1f5f9;
+  color: var(--text-main);
+}
+
+.ticketBtn {
+  background: var(--primary);
+  color: white;
+}

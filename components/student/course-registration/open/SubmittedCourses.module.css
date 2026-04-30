@@ -1,0 +1,82 @@
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.titleRow h2 {
+  margin: 0;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 18px;
+}
+
+.titleRow span {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main h3 {
+  margin: 0 0 18px;
+  font-size: 18px;
+  color: var(--text-main);
+}
+
+.main h3 span {
+  color: var(--text-sub);
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  color: #334155;
+  font-size: 14px;
+  max-width: 650px;
+}
+
+.seats {
+  margin: 16px 0 0;
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.card button {
+  background: white;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  border-radius: 9px;
+  padding: 12px 20px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #fee2e2;
+}

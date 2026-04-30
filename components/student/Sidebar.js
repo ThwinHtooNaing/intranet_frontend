@@ -9,7 +9,7 @@ const menuItems = [
   { icon: "", label: "My Courses", href: "/student/courses" },
   { icon: "", label: "Grades/GPA", href: "/student/grades" },
   { icon: "", label: "Schedule", href: "/student/schedule" },
-  { icon: "", label: "Add New Course", href: "/student/add-course" },
+  { icon: "", label: "Course Registration", href: "/student/course-registration" },
 ];
 
 export default function Sidebar() {
