@@ -1,13 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import styles from "./CourseRegistrationOpenMain.module.css";
-import SubmittedCourses from "./SubmittedCourses";
+import EnrolledCourses from "./SubmittedCourses";
 import RegistrationStatusPanel from "./RegistrationStatusPanel";
 import AddCourseModal from "./AddCourseModal";
 
 export default function CourseRegistrationOpenMain() {
+  const [status, setStatus] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [search, setSearch] = useState("");
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+      const fetchStatus = async () => {
+  
+       
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/registration-status`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            },
+          );
+  
+          const data = await res.json();
+          setStatus(data);
+        } catch (err) {
+          console.error("Failed to fetch registration status:", err);
+        }
+      };
+  
+      fetchStatus();
+    }, []);
+
+    useEffect(() => {
+      if (!status?.termId) return;
+
+      const fetchEnrollments = async () => {
+        try {
+          // make this dynamic userId, termId
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=1&termId=10`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            },
+          );
+
+          const data = await res.json();
+          setCourses(data);
+        } catch (err) {
+          console.error("Failed to fetch enrolled courses:", err);
+        }
+      };
+
+      fetchEnrollments();
+    }, [status?.termId]);
+
+     const filteredCourses = courses.filter((course) => {
+       const keyword = search.toLowerCase();
+
+       return (
+         course.title?.toLowerCase().includes(keyword) ||
+         course.code?.toLowerCase().includes(keyword) ||
+         course.teacherName?.toLowerCase().includes(keyword) ||
+         course.sectionCode?.toLowerCase().includes(keyword)
+       );
+     });
+
+     console.log(courses);
+     
+
 
   return (
     <div className={styles.page}>
@@ -15,13 +82,19 @@ export default function CourseRegistrationOpenMain() {
         <div>
           <h1>Course Registration</h1>
           <p>
-            Browse available courses and build your schedule for the upcoming
-            Spring 2026 academic term.
+            Browse available courses and build your schedule for the upcoming{" "}
+            <span>
+              <span className={styles.termType}>{status?.termType}</span>{" "}
+              <span className={styles.academicYear}>
+                {status?.academicYear}
+              </span>
+            </span>{" "}
+            academic term.
           </p>
         </div>
 
         <button className={styles.addBtn} onClick={() => setShowModal(true)}>
-          + Add New Course
+          + Enroll New Course
         </button>
       </div>
 
@@ -30,28 +103,22 @@ export default function CourseRegistrationOpenMain() {
           <div className={styles.filterBox}>
             <div>
               <label>Search Catalog</label>
-              <input placeholder="e.g. Data Structures" />
-            </div>
-
-            <div>
-              <label>Department</label>
-              <select>
-                <option>All Departments</option>
-                <option>Computer Science</option>
-                <option>Business</option>
-              </select>
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="e.g. Data Structures"
+              />
             </div>
           </div>
 
-          <SubmittedCourses />
+          <EnrolledCourses courses={filteredCourses} />
 
           <div className={styles.infoBox}>
-            ⓘ Submissions can be modified until final advisor approval is
-            granted.
+            ⓘ Enrolled can be modified until Deadline or Paid
           </div>
         </div>
 
-        <RegistrationStatusPanel />
+        <RegistrationStatusPanel termId={status?.termId} />
       </div>
 
       {showModal && <AddCourseModal onClose={() => setShowModal(false)} />}

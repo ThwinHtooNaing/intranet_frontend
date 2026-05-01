@@ -1,13 +1,39 @@
 import styles from "./RegistrationTimeline.module.css";
 
-const steps = [
-  ["April 15", "Course Catalog Published", "done"],
-  ["May 20", "Registration Opens", "active"],
-  ["June 05", "Registration Closes", "next"],
-  ["June 15", "Add/Drop Period Ends", "next"],
-];
+function formatDate(dateString) {
+  if (!dateString) return "-";
 
-export default function RegistrationTimeline() {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    month: "long",
+    day: "2-digit",
+  });
+}
+
+function getStatus(stepDate, isOpen, type) {
+  const now = new Date(stepDate);
+
+  if (type === "open" && isOpen) return "active";
+  if (new Date(stepDate) < new Date()) return "done";
+
+  return "next";
+}
+
+export default function RegistrationTimeline({ registrationStatus }) {
+  if (!registrationStatus) return null;
+
+  const steps = [
+    {
+      date: registrationStatus.registrationOpen,
+      title: "Registration Opens",
+      type: "open",
+    },
+    {
+      date: registrationStatus.registrationClose,
+      title: "Registration Closes",
+      type: "close",
+    },
+  ];
+
   return (
     <aside className={styles.card}>
       <h2>Timeline</h2>
@@ -15,15 +41,24 @@ export default function RegistrationTimeline() {
       <div className={styles.timeline}>
         {steps.map((step) => (
           <div
-            key={step[0]}
+            key={step.type}
             className={`${styles.step} ${
-              step[2] === "active" ? styles.active : ""
+              getStatus(step.date, registrationStatus.isOpen, step.type) ===
+              "active"
+                ? styles.active
+                : ""
+            } ${
+              getStatus(step.date, registrationStatus.isOpen, step.type) ===
+              "done"
+                ? styles.done
+                : ""
             }`}
           >
             <span></span>
+
             <div>
-              <small>{step[0]}</small>
-              <h3>{step[1]}</h3>
+              <small>{formatDate(step.date)}</small>
+              <h3>{step.title}</h3>
             </div>
           </div>
         ))}

@@ -1,6 +1,18 @@
+"use client"
 import styles from "./Topbar.module.css";
 
+import { useState, useEffect } from "react";
+
 export default function Topbar() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const item = localStorage.getItem("user");
+    if (item) {
+      const data = JSON.parse(item);
+      setUser(data);
+    }
+  }, []);
   return (
     <header className={styles.topbar}>
       <div className={styles.searchBox}>
@@ -8,8 +20,8 @@ export default function Topbar() {
       </div>
 
       <div className={styles.userInfo}>
-        <h4>Alex Johnson</h4>
-        <p>Undergraduate Student</p>
+        <h4>{user?.fullName}</h4>
+        <p>{user?.email}</p>
       </div>
     </header>
   );

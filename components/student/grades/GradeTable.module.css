@@ -23,6 +23,7 @@
   text-transform: uppercase;
 }
 
+
 .table td {
   padding: 16px 12px;
   border-top: 1px solid #f1f5f9;
@@ -30,6 +31,43 @@
 }
 
 .grade {
-  color: var(--primary-dark) !important;
-  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  font-weight: 900;
+  font-size: 13px;
+
+  border: 1px solid transparent;
+}
+
+/* A Grades */
+.gradeA {
+  color: #166534 !important;
+  background: #dcfce7;
+  border-color: #bbf7d0;
+}
+
+/* B Grades */
+.gradeB {
+  color: #1e3a8a !important;
+  background: #dbeafe;
+  border-color: #bfdbfe;
+}
+
+/* C Grades */
+.gradeC {
+  color: #92400e !important;
+  background: #fef3c7;
+  border-color: #fde68a;
+}
+
+/* D / F Grades */
+.gradeLow {
+  color: #991b1b !important;
+  background: #fee2e2;
+  border-color: #fecaca;
 }

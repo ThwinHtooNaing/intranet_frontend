@@ -108,7 +108,7 @@ export default function StudentsMain() {
 
       <div className={styles.contentGrid}>
         <StudentTable />
-        <TopPerformers courseOfferingId={selectedCourseId} />
+        <TopPerformers courseOfferingId={3} />
       </div>
     </div>
   );

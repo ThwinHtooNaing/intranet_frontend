@@ -14,7 +14,7 @@ export default function StudentTable() {
         const userId = storedUser?.userId;
 
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/teachers/${userId}/students?page=${page}&size=5`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/teachers/${33}/students?page=${page}&size=5`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

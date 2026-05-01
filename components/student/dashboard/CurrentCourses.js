@@ -1,48 +1,94 @@
+"use client"
+import { useEffect, useState } from "react";
 import styles from "./CurrentCourses.module.css";
 
-const courses = [
-  {
-    title: "Advanced Calculus II",
-    teacher: "Prof. Sarah Jenkins",
-  },
-  {
-    title: "Digital Systems Architecture",
-    teacher: "Dr. Michael Chen",
-  },
-  {
-    title: "Professional Communication",
-    teacher: "Prof. David Wilson",
-  },
-  {
-    title: "Full-Stack Web Dev",
-    teacher: "Dr. Emily Zhang",
-  },
-  {
-    title: "Quantum Physics Lab",
-    teacher: "Prof. Robert Miller",
-  },
-  {
-    title: "Database Management",
-    teacher: "Dr. Sarah Thompson",
-  },
-];
+export default function CurrentCourses({ onSelect }) {
+  const [user, setUser] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [courses, setCourses] = useState([]);
 
-export default function CurrentCourses() {
+  useEffect(() => {
+    const item = localStorage.getItem("user");
+    if (item) {
+      setUser(JSON.parse(item));
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/registration-status`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        const data = await res.json();
+        setStatus(data);
+      } catch (err) {
+        console.error("Failed to fetch registration status:", err);
+      }
+    };
+
+    fetchStatus();
+  }, []);
+
+  useEffect(() => {
+    // if (!status?.termId || !user?.id) return;
+
+    const fetchCourses = async () => {
+      try {
+
+        // make those dynamic
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=1&termId=10`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch current courses");
+        }
+
+        const data = await res.json();
+        setCourses(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Failed to fetch current courses:", err);
+        setCourses([]);
+      }
+    };
+
+    fetchCourses();
+  }, [status?.termId, user?.id]);
+
   return (
     <section className={styles.section}>
       <div className={styles.courseGrid}>
-        {courses.map((course) => (
-          <div className={styles.courseCard} key={course.title}>
-            <h3>{course.title}</h3>
-            <p>{course.teacher}</p>
+        {courses.length === 0 ? (
+          <p className={styles.empty}>No current courses found.</p>
+        ) : (
+          courses.map((course) => (
+            <div className={styles.courseCard} key={course.enrollmentId}>
+              <h3>{course.title}</h3>
+              <p>{course.teacherName || "No teacher assigned"}</p>
 
-            <span className={styles.label}>Progress</span>
+              <span className={styles.label}>Section {course.sectionCode}</span>
 
-            <button className={styles.viewBtn}>
-              View Course <span>→</span>
-            </button>
-          </div>
-        ))}
+              <button
+                className={styles.viewBtn}
+                onClick={() => onSelect?.(course)}
+              >
+                View Course <span>→</span>
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </section>
   );

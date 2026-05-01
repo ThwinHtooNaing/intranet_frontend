@@ -128,3 +128,122 @@
   background: var(--primary-light);
   color: var(--primary-dark);
 }
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+}
+
+.card h3 {
+  margin: 0 0 20px;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.summaryGrid div {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.summaryGrid strong {
+  display: block;
+  font-size: 28px;
+  color: var(--text-main);
+}
+
+.summaryGrid span,
+.feeBox span,
+.statusBox span {
+  display: block;
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.feeBox,
+.statusBox {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.feeBox strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 22px;
+  color: var(--primary-dark);
+}
+
+.statusBox strong {
+  display: inline-block;
+  margin-top: 8px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.termText {
+  margin: 16px 0 0;
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.payButton {
+  width: 100%;
+  margin-top: 16px;
+  height: 46px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.payButton:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+.payButton:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.paid {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.error {
+  margin: 12px 0 0;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 800;
+}

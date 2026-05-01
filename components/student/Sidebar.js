@@ -12,6 +12,10 @@ const menuItems = [
   { icon: "", label: "Course Registration", href: "/student/course-registration" },
 ];
 
+function logout(){
+  localStorage.clear();
+}
+
 export default function Sidebar() {
   const pathname = usePathname();
 
@@ -47,7 +51,7 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <Link href="/" className={styles.logout}>
+      <Link href="/" className={styles.logout} onClick={()=>logout()}>
         <span className="material-icons"></span>
         <span>Logout</span>
       </Link>

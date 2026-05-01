@@ -88,3 +88,23 @@
   padding: 18px 22px;
   border-radius: 12px;
 }
+
+.termType {
+  color: #065f46;              /* deep green text */
+  background-color: #d1fae5;   /* soft green background */
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.academicYear {
+  color: #1e3a8a;              
+  background-color: #dbeafe;   
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-block;
+}

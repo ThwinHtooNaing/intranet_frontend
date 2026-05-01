@@ -56,15 +56,25 @@
 }
 
 /* ===== INFO (date + place) ===== */
-.info {
+.infoBox {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-  color: #475569;
-  margin-bottom: 14px;
+  flex-direction: row;
+  gap: 10px; 
+  margin-bottom: 20px;
 }
 
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #475569;
+  padding: 8px 10px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
 /* ===== BUTTON ===== */
 .viewBtn {
   width: 100%;

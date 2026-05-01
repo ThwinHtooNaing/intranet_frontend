@@ -8,13 +8,78 @@
 .bars {
   display: flex;
   align-items: flex-end;
-  gap: 10px;
-  height: 120px;
+  gap: 16px;
+  height: 180px;
   margin-top: 20px;
+  padding-top: 24px;
 }
 
-.bars div {
+.barWrapper {
   flex: 1;
+  min-width: 56px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.barArea {
+  width: 100%;
+  height: 130px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bar {
+  width: 100%;
+  max-width: 54px;
   background: var(--primary);
-  border-radius: 6px;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  transition: 0.2s ease;
+}
+
+.bar:hover {
+  transform: translateY(-4px);
+  filter: brightness(0.95);
+}
+
+.value {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.label {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.label p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.label small {
+  color: var(--text-sub);
+  font-size: 11px;
+}
+
+.empty {
+  margin: auto;
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.barWrapper:hover .bar {
+  transform: scaleY(1.05);
 }

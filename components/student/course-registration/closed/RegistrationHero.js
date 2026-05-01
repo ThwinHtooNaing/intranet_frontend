@@ -1,18 +1,82 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./RegistrationHero.module.css";
 
 export default function RegistrationHero() {
+  const [status, setStatus] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/registration-status`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        const data = await res.json();
+        setStatus(data);
+      } catch (err) {
+        console.error("Failed to fetch registration status:", err);
+      }
+    };
+
+    fetchStatus();
+  }, []);
+
+  const formatDate = (value) => {
+    if (!value) return "-";
+    return new Date(value).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  function enrollgo(){
+    router.push("/student/course-registration/open");
+  }
+
   return (
     <section className={styles.hero}>
       <div className={styles.content}>
-        <span className={styles.closed}>🔒 Registration Closed</span>
+        <span className={status?.isOpen ? styles.open : styles.closed}>
+          {status?.isOpen ? "🟢 Registration Open" : "🔒 Registration Closed"}
+        </span>
 
         <h1>Course Registration</h1>
+
         <p>
-          Registration is currently closed. You can enroll in new semester courses when registration opens. Please review your academic timeline and ensure all prerequisites are met before the next period.
+          {status?.isOpen
+            ? `Registration is open for ${status.termType} ${status.academicYear}. You can enroll in available courses now.`
+            : "Registration is currently closed. Please review your academic timeline and prepare for the next registration period."}
         </p>
-        <div className={styles.dateBox}>
-          <span>📅 Next Registration Period</span>
-          <strong>May 20 – June 5, 2026</strong>
+
+        <div className={styles.containerdatebox}>
+          <div className={styles.dateBox}>
+            <span>
+              📅{" "}
+              {status?.isOpen
+                ? "Current Registration Period"
+                : "Next Registration Period"}
+            </span>
+            <strong>
+              {status?.registrationOpen
+                ? `${formatDate(status.registrationOpen)} – ${formatDate(status.registrationClose)}`
+                : "No upcoming registration period"}
+            </strong>
+          </div>
+          {status?.isOpen && (
+            <div className={styles.enrollbutton}>
+              <button onClick={()=>enrollgo()}>Register Now</button>
+            </div>
+          )}
         </div>
       </div>
 

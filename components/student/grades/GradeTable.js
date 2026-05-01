@@ -1,14 +1,66 @@
+import { useEffect, useState } from "react";
 import styles from "./GradeTable.module.css";
 
-const data = [
-  ["ECON-402", "Advanced Macroeconomics", "Dr. Sarah Jenkins", "Fall 2023", "A"],
-  ["STAT-315", "Statistical Modeling II", "Prof. Michael Chen", "Spring 2024", "B+"],
-  ["BUSI-250", "Global Markets & Ethics", "Dr. Emily Watson", "Fall 2023", "C"],
-  ["DESN-110", "Data Visualization", "Prof. David Miller", "Spring 2024", "A"],
-  ["COMM-101", "Public Speaking", "Dr. Lisa Ray", "Fall 2023", "D"],
-];
-
 export default function GradeTable() {
+  const [user, setUser] = useState(null);
+  const [grades, setGrades] = useState([]);
+
+  useEffect(() => {
+    const item = localStorage.getItem("user");
+    if (item) {
+      setUser(JSON.parse(item));
+    }
+  }, []);
+
+  function getGradeClass(grade) {
+    if (!grade || grade === "-") return "";
+
+    if (grade.startsWith("A")) return styles.gradeA;
+    if (grade.startsWith("B")) return styles.gradeB;
+    if (grade.startsWith("C")) return styles.gradeC;
+    if (grade.startsWith("D") || grade.startsWith("F")) return styles.gradeLow;
+
+    return "";
+  }
+
+  useEffect(() => {
+    // if (!user?.id) return;
+
+    const fetchGrades = async () => {
+      try {
+        const res = await fetch(
+          // make this dynamic
+          `${process.env.NEXT_PUBLIC_API_URL}/api/students/grades?userId=6`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        );
+
+        console.log(res);
+
+        if (!res.ok) {
+          const message = await res.text();
+          throw new Error(message || "Failed to fetch grades");
+        }
+
+        const data = await res.json();
+        console.log(data);
+        setGrades(Array.isArray(data) ? data : []);
+        
+      } catch (err) {
+        console.error("Failed to fetch grades:", err);
+        setGrades([]);
+      }
+    };
+
+    fetchGrades();
+  }, [user?.id]);
+
+
+  console.log(grades)
+
   return (
     <div className={styles.card}>
       <h2>Course Grades & Feedback</h2>
@@ -25,15 +77,29 @@ export default function GradeTable() {
         </thead>
 
         <tbody>
-          {data.map((row) => (
-            <tr key={row[0]}>
-              <td>{row[0]}</td>
-              <td>{row[1]}</td>
-              <td>{row[2]}</td>
-                <td>{row[3]}</td>
-              <td className={styles.grade}>{row[4]}</td>
+          {grades.length === 0 ? (
+            <tr>
+              <td colSpan="5" className={styles.empty}>
+                No grades available yet.
+              </td>
             </tr>
-          ))}
+          ) : (
+            grades.map((row) => (
+              <tr key={row.enrollmentId}>
+                <td>{row.courseCode}</td>
+                <td>{row.courseTitle}</td>
+                <td>{row.teacherName}</td>
+                <td>{row.term}</td>
+                <td>
+                  <span
+                    className={`${styles.grade} ${getGradeClass(row.grade)}`}
+                  >
+                    {row.grade}
+                  </span>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
