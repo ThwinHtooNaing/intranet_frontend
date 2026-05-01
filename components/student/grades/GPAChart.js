@@ -18,17 +18,13 @@ export default function GPAChart() {
 
         // make this dynamic
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/students/gpa-trend?userId=1`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/students/gpa-trend?userId=${user?.userId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           },
         );
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch GPA trend");
-        }
 
         const data = await res.json();
         setGpaData(Array.isArray(data) ? data : []);
@@ -39,7 +35,9 @@ export default function GPAChart() {
     };
 
     fetchGpaTrend();
-  }, []);
+  }, [user?.userId]);
+
+  console.log(user?.userId);
 
   return (
     <div className={styles.card}>

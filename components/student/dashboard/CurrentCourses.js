@@ -37,14 +37,13 @@ export default function CurrentCourses({ onSelect }) {
   }, []);
 
   useEffect(() => {
-    // if (!status?.termId || !user?.id) return;
+    if (!status?.termId || !user?.userId) return;
 
     const fetchCourses = async () => {
       try {
-
         // make those dynamic
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=1&termId=10`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=${user?.userId}&termId=${status?.termId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -65,7 +64,7 @@ export default function CurrentCourses({ onSelect }) {
     };
 
     fetchCourses();
-  }, [status?.termId, user?.id]);
+  }, [status?.termId, user?.userId]);
 
   return (
     <section className={styles.section}>

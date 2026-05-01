@@ -43,7 +43,7 @@ export default function SubmittedCourses({ courses = [] }) {
                 </p>
               </div>
 
-              <button>Withdraw</button>
+              <button onClick={()=>alert("Coming Soon Features.")}>Withdraw</button>
             </div>
           ))
         )}

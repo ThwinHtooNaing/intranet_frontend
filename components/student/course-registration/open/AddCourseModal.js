@@ -20,7 +20,7 @@ export default function AddCourseModal({ onClose }) {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/new/enroll?userId=53`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/new/enroll?userId=${userId}`,
         {
           method: "POST",
           headers: {
@@ -77,14 +77,14 @@ export default function AddCourseModal({ onClose }) {
   }, []);
 
   useEffect(() => {
-    // if (!courseCode || !status?.termId) return;
+    if (!courseCode || !status?.termId) return;
 
     // make it dynamic
 
     const fetchCourse = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/courses/${courseCode}?termId=${10}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/courses/${courseCode}?termId=${status?.termId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

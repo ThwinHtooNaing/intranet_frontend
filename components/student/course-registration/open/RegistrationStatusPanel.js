@@ -5,16 +5,26 @@ export default function RegistrationStatusPanel({ termId }) {
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState("");
   const [paying, setPaying] = useState(false);
+  const [user,setUser] = useState(null);
+
+  
+  useEffect(() => {
+    const item = localStorage.getItem("user");
+    if (item) {
+      const data = JSON.parse(item);
+      setUser(data);
+    }
+  }, []);
 
   useEffect(() => {
-    if (!termId) return;
+    if (!termId || !user?.userId) return;
 
     const fetchSummary = async () => {
       try {
         const res = await fetch(
 
           // make this dynamic userId, termId
-          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/summary?userId=1&termId=10`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/summary?userId=${user?.userId}&termId=11`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -30,7 +40,7 @@ export default function RegistrationStatusPanel({ termId }) {
     };
 
     fetchSummary();
-  }, [termId]);
+  }, [termId,user?.userId]);
 
   const handlePay = async () => {
     if (!termId) return;
@@ -41,7 +51,7 @@ export default function RegistrationStatusPanel({ termId }) {
     try {
       const res = await fetch(
         // make those dynamic userId and termId
-        `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/pay?userId=1&termId=10`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/pay?userId=${user?.userId}&termId=${termId}`,
         {
           method: "POST",
           headers: {

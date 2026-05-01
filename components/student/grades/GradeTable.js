@@ -24,13 +24,13 @@ export default function GradeTable() {
   }
 
   useEffect(() => {
-    // if (!user?.id) return;
+    if (!user?.userId) return;
 
     const fetchGrades = async () => {
       try {
         const res = await fetch(
           // make this dynamic
-          `${process.env.NEXT_PUBLIC_API_URL}/api/students/grades?userId=6`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/students/grades?userId=${user?.userId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,7 +48,6 @@ export default function GradeTable() {
         const data = await res.json();
         console.log(data);
         setGrades(Array.isArray(data) ? data : []);
-        
       } catch (err) {
         console.error("Failed to fetch grades:", err);
         setGrades([]);
@@ -56,7 +55,7 @@ export default function GradeTable() {
     };
 
     fetchGrades();
-  }, [user?.id]);
+  }, [user?.userId]);
 
 
   console.log(grades)

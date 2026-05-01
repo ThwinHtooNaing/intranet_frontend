@@ -41,13 +41,13 @@ export default function ScheduleMain() {
   }, []);
 
    useEffect(() => {
-    //  if (!status?.termId || !user?.id) return;
+     if (!status?.termId || !user?.userId) return;
 
      const fetchEnrollments = async () => {
        try {
-        // Make Dynamic
+         // Make Dynamic
          const res = await fetch(
-           `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=1&termId=10`,
+           `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=${user?.userId}&termId=10`,
            {
              headers: {
                Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -63,7 +63,7 @@ export default function ScheduleMain() {
      };
 
      fetchEnrollments();
-   }, [status?.termId, user?.id]);
+   }, [status?.termId, user?.userId]);
 
 
   return (

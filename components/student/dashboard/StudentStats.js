@@ -14,6 +14,7 @@ export default function StudentStats() {
   const [summary, setSummary] = useState(null);
   const [courses, setCourses] = useState([]);
 
+
   useEffect(() => {
     const item = localStorage.getItem("user");
     if (item) {
@@ -46,12 +47,12 @@ export default function StudentStats() {
 
   // dashboard summary (GPA, credits, etc.)
   useEffect(() => {
-    if (!status?.termId || !user?.id) return;
+    if (!status?.termId || !user?.userId) return;
 
     const fetchSummary = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/dashboard-cards?userId=${user.id}&termId=${status.termId}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/students/dashboard-cards?userId=${user?.userId}&termId=${status.termId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -61,23 +62,24 @@ export default function StudentStats() {
 
         const data = await res.json();
         setSummary(data);
+        console.log(summary);
       } catch (err) {
         console.error("Failed to fetch summary:", err);
       }
     };
 
     fetchSummary();
-  }, [status?.termId, user?.id]);
+  }, [status?.termId, user?.userId]);
 
   // enrolled courses
   useEffect(() => {
-    // if (!status?.termId || !user?.id) return;
+    if (!status?.termId || !user?.userId) return;
     // make this dynamic
 
     const fetchCourses = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=1&termId=10`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=${user?.userId}&termId=${status?.termId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -93,9 +95,8 @@ export default function StudentStats() {
     };
 
     fetchCourses();
-  }, [status?.termId, user?.id]);
+  }, [status?.termId, user?.userId]);
 
-  // 🔥 calculations
   const totalCourses = courses.length;
   const totalCredits = courses.reduce((sum, c) => sum + (c.credits || 0), 0);
 
@@ -136,6 +137,7 @@ export default function StudentStats() {
   }
 
   const remainingWeeks = Math.max(totalWeeks - weeksDone, 0);
+
 
   return (
     <div className={styles.statsGrid}>

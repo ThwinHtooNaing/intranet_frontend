@@ -4,11 +4,19 @@ import RegistrationHero from "./RegistrationHero";
 import RegistrationCards from "./RegistrationCards";
 import RegistrationTimeline from "./RegistrationTimeline";
 import {useState,useEffect} from 'react';
-import {useRouter} from 'next/navigation'
 
 export default function RegistrationClosedMain() {
   const [status, setStatus] = useState(null);
   const [dashboardCards, setDashboardCards] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const item = localStorage.getItem("user");
+    if (item) {
+      const data = JSON.parse(item);
+      setUser(data);
+    }
+  }, []);
   
     useEffect(() => {
       const fetchStatus = async () => {
@@ -33,13 +41,13 @@ export default function RegistrationClosedMain() {
     }, []);
 
     useEffect(() => {
-      // if (!status?.termId) return;
+      if (!status?.termId || !user?.userId) return;
 
       const fetchDashboardCards = async () => {
         try {
           const res = await fetch(
             // Make it dynamic
-            `${process.env.NEXT_PUBLIC_API_URL}/api/students/dashboard-cards?userId=1&termId=11`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/students/dashboard-cards?userId=${user?.userId}&termId=${status?.termId}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -55,7 +63,7 @@ export default function RegistrationClosedMain() {
       };
 
       fetchDashboardCards();
-    }, [status?.termId]);
+    }, [status?.termId, user?.userId]);
 
   return (
     <div className={styles.page}>

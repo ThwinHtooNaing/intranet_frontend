@@ -41,12 +41,12 @@ export default function CoursesMain() {
   }, []);
 
   useEffect(() => {
-    // if (!status?.termId || !user?.id) return;
+    if (!status?.termId || !user?.userId) return;
 
     const fetchCourses = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=1&termId=10`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/registrations/students/enrollments?userId=${user?.userId}&termId=${status.termId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -62,7 +62,7 @@ export default function CoursesMain() {
     };
 
     fetchCourses();
-  }, [status?.termId, user?.id]);
+  }, [status?.termId, user?.userId]);
 
   console.log(courses)
 

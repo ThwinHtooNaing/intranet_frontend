@@ -42,13 +42,13 @@ export default function GradesMain() {
   }, []);
 
   useEffect(() => {
-    // if (!status?.termId || !user?.id) return;
+    if (!status?.termId || !user?.userId) return;
 
     const fetchSummary = async () => {
       try {
         //Make this dynamic
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/students/dashboard-cards?userId=1&termId=10`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/students/dashboard-cards?userId=${user?.userId}&termId=${status?.termId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -64,7 +64,7 @@ export default function GradesMain() {
     };
 
     fetchSummary();
-  }, [status?.termId, user?.id]);
+  }, [status?.termId, user?.userId]);
 
   return (
     <div className={styles.page}>
